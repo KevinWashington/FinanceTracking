@@ -1,12 +1,11 @@
 <template lang="">
   <div>
     <line-chart :chart-options="chartOptions" :chart-data="chartData" />
-
-    {{ this.chartData.labels }}
   </div>
 </template>
 <script>
 import { groupBy, orderBy } from "lodash";
+
 export default {
   data() {
     return {
@@ -16,19 +15,20 @@ export default {
           {
             label: "Data One",
             backgroundColor: "#f87979",
-            data: [40, 20, 12],
+            data: [],
           },
-          {
-            label: "Data Two",
-            backgroundColor: "#797",
-            data: [12, 30, 40],
-          },
+          // {
+          //   label: "Data Two",
+          //   backgroundColor: "#797",
+          //   data: [12, 30, 40],
+          // },
         ],
       },
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false,
       },
+      
     };
   },
   async asyncData({ store }) {
@@ -37,21 +37,43 @@ export default {
     };
   },
   methods: {
-    transactionGrouped() {
-      return groupBy(orderBy(this.transactions, "date", "desc"), "date")  
-    },
-    addLabels() {
-      for (var i in this.transactionGrouped) {
-        this.chartData.labels.push(i);
+    datesTransactions() {
+      let index = groupBy(orderBy(this.transactions, "date", "desc"), "date")
+      for (let index1 in index){
+        this.chartData.labels.push(index1)
       }
     },
-  },
-  created() {
-    this.transactionGrouped();
-  },
+    valuesTransactions() {
+      let data = groupBy(orderBy(this.transactions, "date", "desc"), "date")
+      let values = []
+      let latestDate = ''
 
+      for (let index in data){
+
+        let actualDate = index
+
+        for (let index2 in data[index]){
+          
+          if(actualDate == latestDate){
+
+            values[values.length-1] = values[values.length-1] + data[index][index2]['amount']
+
+          }else{
+
+            values.push(data[index][index2]['amount'])
+
+          }
+          
+          latestDate = index
+        }
+      }      
+      this.chartData.datasets[0]['data']= values
+      return this.chartData.datasets[0]['data']= values
+    }
+  },
   beforeMount() {
-    this.addLabels();
+    this.valuesTransactions(),
+    this.datesTransactions()
   },
 };
 </script>
