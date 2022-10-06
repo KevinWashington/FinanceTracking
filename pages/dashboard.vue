@@ -2,6 +2,7 @@
   <div>
     <line-chart :chart-options="chartOptions" :chart-data="chartData" />
   </div>
+  
 </template>
 <script>
 import { groupBy, orderBy } from "lodash";
@@ -13,7 +14,7 @@ export default {
         labels: [],
         datasets: [
           {
-            label: "Data One",
+            label: "Geral",
             backgroundColor: "#f87979",
             data: [],
           },
@@ -28,52 +29,51 @@ export default {
         responsive: true,
         maintainAspectRatio: false,
       },
+      filter: {
+        categoryId: 1
+      },
+      filro: ''
       
     };
   },
   async asyncData({ store }) {
+    let transactionsJson = await store.dispatch("transactions/getTransaction")
     return {
-      transactions: await store.dispatch("transactions/getTransaction"),
+      transactions: groupBy(orderBy(transactionsJson, "date", "desc"), "date")
     };
   },
   methods: {
-    datesTransactions() {
-      let index = groupBy(orderBy(this.transactions, "date", "desc"), "date")
-      for (let index1 in index){
-        this.chartData.labels.push(index1)
+    datesTransactions(data) {
+      for (let index in data){
+        this.chartData.labels.unshift(index)
       }
     },
-    valuesTransactions() {
-      let data = groupBy(orderBy(this.transactions, "date", "desc"), "date")
+    valuesTransactions(data) {
       let values = []
-      let latestDate = ''
-
       for (let index in data){
-
-        let actualDate = index
-
         for (let index2 in data[index]){
-          
-          if(actualDate == latestDate){
-
-            values[values.length-1] = values[values.length-1] + data[index][index2]['amount']
-
+          if(index == latestDate){
+            values[0] += parseInt(data[index][index2]['amount'])
           }else{
-
-            values.push(data[index][index2]['amount'])
-
+            values.unshift(data[index][index2]['amount'])
           }
-          
-          latestDate = index
+          let latestDate = index
         }
       }      
-      this.chartData.datasets[0]['data']= values
-      return this.chartData.datasets[0]['data']= values
-    }
+     return values
+    },
+    onFilter(filter) {
+      this.$store
+        .dispatch("transactions/getTransaction", filter)
+        .then((response) => {
+          return response;
+        });
+    },
   },
   beforeMount() {
-    this.valuesTransactions(),
-    this.datesTransactions()
+    this.onFilter(this.filter)
+    this.valuesTransactions(this.transactions),
+    this.datesTransactions(this.transactions)
   },
 };
 </script>
