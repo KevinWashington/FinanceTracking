@@ -18,9 +18,8 @@
                   'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium': $route.name !== 'index'
                    }"
                   to="/"
-                  >
-                  Home
-                </nuxt-link>
+                  >Home</nuxt-link
+                >
 
                 <nuxt-link
                   :class="{ 
@@ -28,21 +27,9 @@
                   'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium': $route.name !== 'categories'
                    }"
                   to="/categories"
+                  >Categorias</nuxt-link
                 >
-                  Categorias
-                </nuxt-link>
-
-                <nuxt-link
-                  :class="{ 
-                    'bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium': $route.name ==='dashboard',
-                  'text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium': $route.name !== 'dashboard'
-                   }"
-                  to="/dashboard"
                 >
-                  Dashboard
-                </nuxt-link>
-
-                
               </div>
             </div>
           </div>
