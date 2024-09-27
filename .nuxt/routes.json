@@ -1,0 +1,16 @@
+[
+  {
+    "name": "categories",
+    "path": "/categories",
+    "component": "C:\\\\Users\\\\DEAC_TI_07\\\\Documents\\\\GitHub\\\\FinanceTracking\\\\pages\\\\categories.vue",
+    "chunkName": "pages/categories",
+    "_name": "_47ccd092"
+  },
+  {
+    "name": "index",
+    "path": "/",
+    "component": "C:\\\\Users\\\\DEAC_TI_07\\\\Documents\\\\GitHub\\\\FinanceTracking\\\\pages\\\\index.vue",
+    "chunkName": "pages/index",
+    "_name": "_0cfd29cc"
+  }
+]

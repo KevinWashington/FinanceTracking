@@ -1,0 +1,29 @@
+{
+  "TransactionsTransaction": {
+    "description": "Auto imported from components/Transactions/Transaction.vue"
+  },
+  "TransactionsTransactionAdd": {
+    "description": "Auto imported from components/Transactions/TransactionAdd.vue"
+  },
+  "TransactionsTransactionEdit": {
+    "description": "Auto imported from components/Transactions/TransactionEdit.vue"
+  },
+  "TransactionsTransactionFilter": {
+    "description": "Auto imported from components/Transactions/TransactionFilter.vue"
+  },
+  "UiAppButton": {
+    "description": "Auto imported from components/Ui/AppButton.vue"
+  },
+  "UiAppFormInput": {
+    "description": "Auto imported from components/Ui/AppFormInput.vue"
+  },
+  "UiAppFormLabel": {
+    "description": "Auto imported from components/Ui/AppFormLabel.vue"
+  },
+  "UiAppFormSelect": {
+    "description": "Auto imported from components/Ui/AppFormSelect.vue"
+  },
+  "UiHeader": {
+    "description": "Auto imported from components/Ui/Header.vue"
+  }
+}
